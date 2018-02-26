@@ -27,4 +27,33 @@ defmodule Cards do
   def contains?(deck, card) do
     Enum.member?(deck, card)
   end
+
+  # {hand, rest} returned by Enum.split is a Tuple
+  def deal(deck, hand_size) do
+    {hand, _} = deck
+    |> shuffle
+    |> Enum.split(hand_size)
+
+    hand
+  end
+
+  def save(deck, filename) do
+    # Whenever write Erlang code, just use :erlang
+    # and then the erlang function
+
+    # binary here is not actual term_to_binary
+    # is just a writeable file
+    binary = :erlang.term_to_binary(deck)
+    File.write(filename, binary)
+  end
+
+  def load(filename) do
+    {status, binary} = File.read(filename)
+
+    case status do
+      :ok -> :erlang.binary_to_term(binary)
+      :error -> "That file does not exist"
+    end
+  end
+
 end
