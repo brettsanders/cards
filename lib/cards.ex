@@ -1,22 +1,30 @@
 defmodule Cards do
-  @moduledoc """
-  Documentation for Cards.
-  """
+  def create_deck do
+    values = ["Ace", "Two", "Three", "Four", "Five", "Six",
+      "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"]
+    suits = ["Spades", "Clubs", "Hearts", "Diamonds"]
 
-  @doc """
-  Hello world.
+    # List Comprehension, inherently a Map
+    # These are LinkedLists (not arrays)
+    # for suit <- suits do
+    #   for value <- values do
+    #     "#{value} of #{suit}"
+    #   end
+    # end
+    # |> List.flatten
 
-  ## Examples
+    # Can write nested comprehensions for flat list as following
+    for suit <- suits, value <- values do
+      "#{value} of #{suit}"
+    end
 
-      iex> Cards.hello
-      :world
-
-  """
-  def hello do
-    :world
   end
 
-  def is(noun, adjective) do
-    "#{noun} is #{adjective}"
+  def shuffle(deck) do
+     Enum.shuffle(deck)
+  end
+
+  def contains?(deck, card) do
+    Enum.member?(deck, card)
   end
 end
