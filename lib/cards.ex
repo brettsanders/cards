@@ -1,4 +1,7 @@
 defmodule Cards do
+  @moduledoc """
+    Provides methods for creating and handling a deck of cards
+  """
   def create_deck do
     values = ["Ace", "Two", "Three", "Four", "Five", "Six",
       "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"]
@@ -28,8 +31,9 @@ defmodule Cards do
     Enum.member?(deck, card)
   end
 
-  # {hand, rest} returned by Enum.split is a Tuple
+
   def deal(deck, hand_size) do
+    # {hand, rest} returned by Enum.split is a Tuple
     {hand, _} = deck
     |> shuffle
     |> Enum.split(hand_size)
@@ -54,4 +58,9 @@ defmodule Cards do
     end
   end
 
+  def create_hand(hand_size) do
+    create_deck
+    |> shuffle
+    |> deal(hand_size)
+  end
 end
